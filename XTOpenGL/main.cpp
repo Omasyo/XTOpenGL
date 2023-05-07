@@ -3,6 +3,7 @@
 
 #include "stb_image.h"
 #include "Shader.h"
+#include "Camera.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -18,12 +19,22 @@ const char* containerTexPath = "textures/container.jpg";
 const char* faceTexPath = "textures/awesomeface.png";
 
 void processInput(GLFWwindow* window);
+void mouse_callback(GLFWwindow* window, double xPosIn, double yPosIn);
+void scroll_callback(GLFWwindow* window, double xOffset, double yOffset);
 void  framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 float ratio = 0.5f;
 float xCoord = 0.0f;
 float yCoord = 0.0f;
 float zCoord = 0.0f;
+
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+float lastX = SCR_WIDTH / 2.0f;
+float lastY = SCR_WIDTH / 2.0f;
+bool firstMouse = true;
+
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
 
 int main()
 {
@@ -42,8 +53,10 @@ int main()
 	}
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	glfwSetCursorPosCallback(window, mouse_callback);
+	glfwSetScrollCallback(window, scroll_callback);
 
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		return -1;
@@ -94,26 +107,16 @@ int main()
 	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 	};
 
-	GLuint indices[] = {
-		0, 1, 3,
-		1, 2, 3,
-	};
-
 	GLuint VBOs[1];
 	GLuint VAOs[1];
-	GLuint EBOs[1];
 
 
 	glGenVertexArrays(1, VAOs);
 	glGenBuffers(1, VBOs);
-	glGenBuffers(1, EBOs);
 
 	glBindVertexArray(VAOs[0]);
 	glBindBuffer(GL_ARRAY_BUFFER, VBOs[0]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBOs[0]);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), reinterpret_cast<void*>(0));
 	glEnableVertexAttribArray(0);
@@ -193,18 +196,22 @@ int main()
 
 	while (!glfwWindowShouldClose(window))
 	{
+		float currentFrame = static_cast<float>(glfwGetTime());
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+
 		processInput(window);
 
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		int vertexColorLocation = glGetUniformLocation(shader.ID, "ratio");
-		glUniform1f(vertexColorLocation, ratio);
+		shader.setFloat("ratio", ratio);
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture1);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, texture2);
+
 
 
 		GLuint modelLoc = glGetUniformLocation(shader.ID, "model");
@@ -215,20 +222,22 @@ int main()
 		glm::mat4 view;
 		glm::mat4 projection = glm::perspective(glm::radians(90.0f * ratio), static_cast<float>(SCR_WIDTH) / SCR_HEIGHT, 0.1f, 100.0f);
 
+		//view = glm::mat4(1.0f);/*
+		//view = glm::translate(view, glm::vec3(0.0f + xCoord, 0.0f + yCoord, -3.0f + zCoord));*/
+		view = camera.getViewMatrix();
+
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(projectionlLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
 		for (size_t i = 0; i < 10; i++)
 		{
 			model = glm::mat4(1.0f);
 			model = glm::translate(model, cubePositions[i]);
 			model = glm::rotate(model, static_cast<float>(glfwGetTime()) * glm::radians(50.0f), glm::vec3(1.0f, 0.3f * i, 0.5f * i * (1 - i / 10)));
-			view = glm::mat4(1.0f);
-			view = glm::translate(view, glm::vec3(0.0f + xCoord, 0.0f + yCoord, -3.0f + zCoord));
 
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
-
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-		glUniformMatrix4fv(projectionlLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
 		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBOs[0]);
 
@@ -241,8 +250,6 @@ int main()
 
 	glDeleteVertexArrays(1, VAOs);
 	glDeleteBuffers(1, VBOs);
-	glDeleteBuffers(1, EBOs);
-	//glDeleteProgram(shaderProgram);
 
 	glfwTerminate();
 	return 0;
@@ -262,16 +269,16 @@ void processInput(GLFWwindow* window)
 
 	GLfloat speed = 0.01f;
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-		zCoord += speed;
+		camera.processKeyboard(FORWARD, deltaTime);
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-		zCoord -= speed;
+		camera.processKeyboard(BACKWARD, deltaTime);
 	}
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-		xCoord += speed;
+		camera.processKeyboard(LEFT, deltaTime);
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-		xCoord -= speed;
+		camera.processKeyboard(RIGHT, deltaTime);
 	}
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
 		yCoord -= speed;
@@ -280,6 +287,32 @@ void processInput(GLFWwindow* window)
 		yCoord += speed;
 	}
 
+}
+
+void mouse_callback(GLFWwindow* window, double xPosIn, double yPosIn)
+{
+	float xPos = static_cast<float>(xPosIn);
+	float yPos = static_cast<float>(yPosIn);
+
+	if (firstMouse)
+	{
+		lastX = xPos;
+		lastY = yPos;
+		firstMouse = false;
+	}
+
+	float xOffset = xPos - lastX;
+	float yOffset = lastY - yPos;
+
+	lastX = xPos;
+	lastY = yPos;
+
+	camera.processMouseMovement(xOffset, yOffset);
+}
+
+void scroll_callback(GLFWwindow* window, double xOffset, double yOffset)
+{
+	camera.processMouseScroll(static_cast<float>(yOffset));
 }
 
 
