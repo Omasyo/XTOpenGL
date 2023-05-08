@@ -15,7 +15,7 @@ const float PITCH = 0.0f;
 const float SPEED = 2.5f;
 const float SENSIVITY = 0.1f;
 const float ZOOM = 45.0f;
-const float ROTATIONSPEED = 0.25f;
+const float ROTATIONSPEED = 0.2f;
 
 class Camera
 {
@@ -56,6 +56,8 @@ public:
 	void processRotate(Camera_Movement direction, float deltaTime, bool constrainPitch = true);
 	void processMouseMovement(float xOffset, float yOffset, bool constrainPitch = true);
 	void processMouseScroll(float yOffset);
+
+
 
 private:
 	void updateCameraVectors();
