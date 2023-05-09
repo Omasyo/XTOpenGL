@@ -4,7 +4,7 @@
 
 glm::mat4 Camera::getViewMatrix() { return glm::lookAt(position, position + front, up); }
 
-void Camera::processKeyboard(Camera_Movement direction, float deltaTime) 
+void Camera::processKeyboard(Camera_Movement direction, float deltaTime)
 {
 	float velocity = movementSpeed * deltaTime;
 	switch (direction)
@@ -81,7 +81,7 @@ void Camera::updateCameraVectors()
 	glm::vec3 front;
 	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	front.y = sin(glm::radians(pitch));
-	front.z = sin(glm::radians(yaw) * cos(glm::radians(pitch)));
+	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 	this->front = glm::normalize(front);
 
 	right = glm::normalize(glm::cross(front, worldUp));

@@ -31,8 +31,8 @@ bool firstMouse = true;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
-glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 glm::vec3 initPos(1.2f, 1.0f, 2.0f);
+glm::vec3 lightPos(initPos);
 
 float ratio = 0.5f;
 
@@ -181,7 +181,7 @@ int main() {
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//lightPos = glm::vec3(initPos.x * sin(glfwGetTime()), initPos.y * cos(glfwGetTime()), initPos.z * sin(glfwGetTime()));
+		lightPos = glm::vec3(initPos.x * sin(glfwGetTime()), initPos.y * cos(glfwGetTime()), initPos.z * sin(glfwGetTime()));
 
 		lightingShader.use();
 		lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
@@ -200,6 +200,10 @@ int main() {
 		lightingShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
 		lightingShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
 		lightingShader.setFloat("material.shininess", 32.0f);
+
+		lightingShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+		lightingShader.setVec3("light.diffuse", 1.0f, 1.0f, 1.0f);
+		lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
 		glBindVertexArray(cubeVAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -254,18 +258,18 @@ void processInput(GLFWwindow* window)
 	//	yCoord += speed;
 	//}
 
-	//if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-	//	camera.processRotate(FORWARD, deltaTime);
-	//}
-	//if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-	//	camera.processRotate(BACKWARD, deltaTime);
-	//}
-	//if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-	//	camera.processRotate(LEFT, deltaTime);
-	//}
-	//if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-	//	camera.processRotate(RIGHT, deltaTime);
-	//}
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
+		camera.processRotate(FORWARD, deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+		camera.processRotate(BACKWARD, deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+		camera.processRotate(LEFT, deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+		camera.processRotate(RIGHT, deltaTime);
+	}
 }
 
 void mouse_callback(GLFWwindow* window, double xPosIn, double yPosIn)

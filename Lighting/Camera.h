@@ -12,6 +12,7 @@ enum Camera_Movement {
 
 const float YAW = -90.0f;
 const float PITCH = 0.0f;
+const float ROLL = 0.0f;
 const float SPEED = 2.5f;
 const float SENSIVITY = 0.1f;
 const float ZOOM = 45.0f;
@@ -28,6 +29,7 @@ public:
 
 	GLfloat yaw;
 	GLfloat pitch;
+	GLfloat roll;
 	GLfloat movementSpeed;
 	GLfloat mouseSensitivity;
 	GLfloat rotationSpeed;
@@ -38,9 +40,10 @@ public:
 		glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f),
 		glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),
 		float yaw = YAW,
-		float pitch = PITCH
+		float pitch = PITCH,
+		float roll = ROLL
 	) : front(glm::vec3(0.0f, 0.0f, -1.0f)), movementSpeed(SPEED), mouseSensitivity(SENSIVITY), zoom(ZOOM),
-		rotationSpeed(ROTATIONSPEED), position(position), worldUp(up), yaw(yaw), pitch(pitch)
+		rotationSpeed(ROTATIONSPEED), position(position), worldUp(up), yaw(yaw), pitch(pitch), roll(roll)
 	{
 		updateCameraVectors();
 	}
