@@ -1,5 +1,7 @@
 #include "Mesh.h"
 
+#include <assimp/material.h>
+
 #include <string>
 #include <format>
 #include <iostream>
@@ -52,10 +54,10 @@ void Mesh::draw(Shader& shader)
 
 		switch (textures[i].type)
 		{
-		case diffuse:
+		case TextureType::diffuse:
 			suffix = "diffuse" + diffuseIndex++;
 			break;
-		case specualar:
+		case TextureType::specualar:
 			suffix = "specular" + specularIndex++;
 			break;
 		default :

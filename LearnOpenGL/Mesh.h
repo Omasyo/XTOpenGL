@@ -7,7 +7,7 @@
 
 #include "Shader.h"
 
-enum TextureType { diffuse, specualar };
+enum class TextureType { diffuse, specualar };
 
 struct Vertex 
 {
@@ -20,6 +20,7 @@ struct Texture
 {
 	GLuint id;
 	TextureType type;
+	std::string path;
 };
 
 class Mesh
