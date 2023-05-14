@@ -13,7 +13,7 @@ unsigned int TextureFromFile(
 	bool gamma = false
 );
 
-Model::Model(char* path) { loadModel(path); }
+Model::Model(const char* path) { loadModel(path); }
 
 std::unordered_map<aiTextureType, TextureType> TYPENAME = {
 	{aiTextureType_DIFFUSE, TextureType::diffuse},
@@ -88,7 +88,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	for (size_t i = 0; i < mesh->mNumFaces; i++)
 	{
 		auto face = mesh->mFaces[i];
-		for (size_t j = 0; i < face.mNumIndices; j++)
+		for (size_t j = 0; j < face.mNumIndices; j++)
 		{
 			indices.push_back(face.mIndices[j]);
 		}
@@ -111,7 +111,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* material, aiTexture
 		aiString path;
 		material->GetTexture(type, i, &path);
 		bool skip = false;
-		for (size_t loadedIndex = 0; i < textures_loaded.size(); loadedIndex++)
+		for (size_t loadedIndex = 0; loadedIndex < textures_loaded.size(); loadedIndex++)
 		{
 			if (std::strcmp(textures_loaded[loadedIndex].path.data(), path.C_Str()) == 0)
 			{
@@ -128,6 +128,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* material, aiTexture
 			path.C_Str(),
 			};
 			textures.push_back(texture);
+			textures_loaded.push_back(texture);
 		}
 	}
 	return textures;
@@ -145,7 +146,7 @@ unsigned int TextureFromFile(
 
 	int width, height, nrChannels;
 	stbi_set_flip_vertically_on_load(true);
-	unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrChannels, 0);
 
 	if (data)
 	{
@@ -174,7 +175,7 @@ unsigned int TextureFromFile(
 	}
 	else
 	{
-		std::cout << "Texture failed to load at path" << path << std::endl;
+		std::cout << "Texture failed to load at path " << directory + '/' + path << std::endl;
 	}
 	stbi_image_free(data);
 	return textureId;
