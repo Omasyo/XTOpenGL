@@ -91,12 +91,12 @@ int main() {
 
 		processInput(window);
 
-		glClearColor(0.03f, 0.232f, 0.035f, 1.0f);
+		glClearColor(0.03f, 0.032f, 0.035f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
 		lightingShader.use();
-		//lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+		lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 
 		glm::mat4 model = glm::mat4(1.0f);
 		glm::mat4 view = camera.getViewMatrix();
@@ -110,46 +110,42 @@ int main() {
 		lightingShader.setMat4("view", view);
 		lightingShader.setMat4("projection", projection);
 
-		//lightingShader.setFloat("material.shininess", 64.0f);
-
-		//lightingShader.setVec3("material.ambient", 1.0f, 1.0f, 1.0f);
-		//lightingShader.setVec3("material.diffuse", 1.0f, 1.0f, 1.0f);
-		//lightingShader.setVec3("material.specular", 1.0f, 1.0f, 1.0f);
-		//lightingShader.setFloat("material.shininess", 32.0f);
+		lightingShader.setFloat("material.shininess", 64.0f);
 
 
 
-		//auto dirLightColor = glm::vec3(0.30f, 0.35f, 0.40f);
+		auto dirLightColor = glm::vec3(
+			0.6f + 0.4f * static_cast<float>(sin(glfwGetTime())),
+			0.6f + 0.4f * static_cast<float>(cos(glfwGetTime())),
+			0.6f + 0.4f * static_cast<float>(sin(glfwGetTime() * 2)));
 
-		//glm::vec3 dirDiffuseColor = dirLightColor * glm::vec3(0.1f);
-		//glm::vec3 dirAmbientColor = dirDiffuseColor * glm::vec3(0.1f);
+		glm::vec3 dirDiffuseColor = dirLightColor * glm::vec3(1.0f);
+		glm::vec3 dirAmbientColor = dirDiffuseColor * glm::vec3(0.1f);
+
+		auto torchlightColor = glm::vec3(1.0f);
+
+		glm::vec3 torchDiffuseColor = torchlightColor * glm::vec3(1.0f);
+		glm::vec3 torchAmbientColor = torchDiffuseColor * glm::vec3(0.05f);
+
+		lightingShader.setVec3("viewPos", camera.position);
+
+		lightingShader.setVec3("dirLight.direction", -1.0f, -1.0f, -1.0f);
+		lightingShader.setVec3("dirLight.ambient", dirAmbientColor);
+		lightingShader.setVec3("dirLight.diffuse", dirDiffuseColor);
+		lightingShader.setVec3("dirLight.specular", dirLightColor);
 
 
-		//auto torchLightColor = glm::vec3(1.0f);
-
-		//glm::vec3 torchDiffuseColor = torchLightColor * glm::vec3(1.0f);
-		//glm::vec3 torchAmbientColor = torchDiffuseColor * glm::vec3(0.05f);
-
-
-		//lightingShader.setVec3("viewPos", camera.position);
-
-		//lightingShader.setVec3("dirLight.direction", -1.0f, -1.0f, -1.0f);
-		//lightingShader.setVec3("dirLight.ambient", dirAmbientColor);
-		//lightingShader.setVec3("dirLight.diffuse", dirDiffuseColor);
-		//lightingShader.setVec3("dirLight.specular", dirLightColor);
-
-
-		//lightingShader.use();
-		//lightingShader.setVec3("torchLight.position", camera.position);
-		//lightingShader.setVec3("torchLight.direction", camera.front);
-		//lightingShader.setFloat("torchLight.cutOff", glm::cos(glm::radians(5.0f)));
-		//lightingShader.setFloat("torchLight.outerCutOff", glm::cos(glm::radians(15.0f)));
-		//lightingShader.setVec3("torchLight.ambient", torchAmbientColor);
-		//lightingShader.setVec3("torchLight.diffuse",torchDiffuseColor);
-		//lightingShader.setVec3("torchLight.specular", torchLightColor);
-		//lightingShader.setFloat("torchLight.constant", 1.0f);
-		//lightingShader.setFloat("torchLight.linear", 0.09f);
-		//lightingShader.setFloat("torchLight.quadratic", 0.032f);
+		lightingShader.use();
+		lightingShader.setVec3("torchLight.position", camera.position);
+		lightingShader.setVec3("torchLight.direction", camera.front);
+		lightingShader.setFloat("torchLight.cutOff", glm::cos(glm::radians(5.0f)));
+		lightingShader.setFloat("torchLight.outerCutOff", glm::cos(glm::radians(15.0f)));
+		lightingShader.setVec3("torchLight.ambient", torchAmbientColor);
+		lightingShader.setVec3("torchLight.diffuse",torchDiffuseColor);
+		lightingShader.setVec3("torchLight.specular", torchlightColor);
+		lightingShader.setFloat("torchLight.constant", 1.0f);
+		lightingShader.setFloat("torchLight.linear", 0.09f);
+		lightingShader.setFloat("torchLight.quadratic", 0.032f);
 
 		ourModel.draw(lightingShader);
 
