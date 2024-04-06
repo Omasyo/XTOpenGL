@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/omaka/Documents/GitHub/XTOpenGL/build",
+  "command": "/usr/bin/g++ -I/home/omaka/Documents/GitHub/XTOpenGL/external/glm -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui/backends -I/home/omaka/Documents/GitHub/XTOpenGL/external/stb -g -std=gnu++20 -o CMakeFiles/build-debug.dir/src/main.cpp.o -c /home/omaka/Documents/GitHub/XTOpenGL/src/main.cpp",
+  "file": "/home/omaka/Documents/GitHub/XTOpenGL/src/main.cpp",
+  "output": "CMakeFiles/build-debug.dir/src/main.cpp.o"
+}
+]
