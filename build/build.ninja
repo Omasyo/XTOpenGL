@@ -52,9 +52,58 @@ build cmake_object_order_depends_target_build-debug: phony || CMakeFiles/build-d
 build CMakeFiles/build-debug.dir/src/main.cpp.o: CXX_COMPILER__build-debug_unscanned_Debug /home/omaka/Documents/GitHub/XTOpenGL/src/main.cpp || cmake_object_order_depends_target_build-debug
   DEP_FILE = CMakeFiles/build-debug.dir/src/main.cpp.o.d
   FLAGS = -g -std=gnu++20
-  INCLUDES = -I/home/omaka/Documents/GitHub/XTOpenGL/external/glm -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui/backends -I/home/omaka/Documents/GitHub/XTOpenGL/external/stb
+  INCLUDES = -I/home/omaka/Documents/GitHub/XTOpenGL/external/glm -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui/backends
   OBJECT_DIR = CMakeFiles/build-debug.dir
   OBJECT_FILE_DIR = CMakeFiles/build-debug.dir/src
+
+build CMakeFiles/build-debug.dir/external/imgui/imgui.cpp.o: CXX_COMPILER__build-debug_unscanned_Debug /home/omaka/Documents/GitHub/XTOpenGL/external/imgui/imgui.cpp || cmake_object_order_depends_target_build-debug
+  DEP_FILE = CMakeFiles/build-debug.dir/external/imgui/imgui.cpp.o.d
+  FLAGS = -g -std=gnu++20
+  INCLUDES = -I/home/omaka/Documents/GitHub/XTOpenGL/external/glm -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui/backends
+  OBJECT_DIR = CMakeFiles/build-debug.dir
+  OBJECT_FILE_DIR = CMakeFiles/build-debug.dir/external/imgui
+
+build CMakeFiles/build-debug.dir/external/imgui/imgui_demo.cpp.o: CXX_COMPILER__build-debug_unscanned_Debug /home/omaka/Documents/GitHub/XTOpenGL/external/imgui/imgui_demo.cpp || cmake_object_order_depends_target_build-debug
+  DEP_FILE = CMakeFiles/build-debug.dir/external/imgui/imgui_demo.cpp.o.d
+  FLAGS = -g -std=gnu++20
+  INCLUDES = -I/home/omaka/Documents/GitHub/XTOpenGL/external/glm -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui/backends
+  OBJECT_DIR = CMakeFiles/build-debug.dir
+  OBJECT_FILE_DIR = CMakeFiles/build-debug.dir/external/imgui
+
+build CMakeFiles/build-debug.dir/external/imgui/imgui_draw.cpp.o: CXX_COMPILER__build-debug_unscanned_Debug /home/omaka/Documents/GitHub/XTOpenGL/external/imgui/imgui_draw.cpp || cmake_object_order_depends_target_build-debug
+  DEP_FILE = CMakeFiles/build-debug.dir/external/imgui/imgui_draw.cpp.o.d
+  FLAGS = -g -std=gnu++20
+  INCLUDES = -I/home/omaka/Documents/GitHub/XTOpenGL/external/glm -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui/backends
+  OBJECT_DIR = CMakeFiles/build-debug.dir
+  OBJECT_FILE_DIR = CMakeFiles/build-debug.dir/external/imgui
+
+build CMakeFiles/build-debug.dir/external/imgui/imgui_tables.cpp.o: CXX_COMPILER__build-debug_unscanned_Debug /home/omaka/Documents/GitHub/XTOpenGL/external/imgui/imgui_tables.cpp || cmake_object_order_depends_target_build-debug
+  DEP_FILE = CMakeFiles/build-debug.dir/external/imgui/imgui_tables.cpp.o.d
+  FLAGS = -g -std=gnu++20
+  INCLUDES = -I/home/omaka/Documents/GitHub/XTOpenGL/external/glm -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui/backends
+  OBJECT_DIR = CMakeFiles/build-debug.dir
+  OBJECT_FILE_DIR = CMakeFiles/build-debug.dir/external/imgui
+
+build CMakeFiles/build-debug.dir/external/imgui/imgui_widgets.cpp.o: CXX_COMPILER__build-debug_unscanned_Debug /home/omaka/Documents/GitHub/XTOpenGL/external/imgui/imgui_widgets.cpp || cmake_object_order_depends_target_build-debug
+  DEP_FILE = CMakeFiles/build-debug.dir/external/imgui/imgui_widgets.cpp.o.d
+  FLAGS = -g -std=gnu++20
+  INCLUDES = -I/home/omaka/Documents/GitHub/XTOpenGL/external/glm -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui/backends
+  OBJECT_DIR = CMakeFiles/build-debug.dir
+  OBJECT_FILE_DIR = CMakeFiles/build-debug.dir/external/imgui
+
+build CMakeFiles/build-debug.dir/external/imgui/backends/imgui_impl_glfw.cpp.o: CXX_COMPILER__build-debug_unscanned_Debug /home/omaka/Documents/GitHub/XTOpenGL/external/imgui/backends/imgui_impl_glfw.cpp || cmake_object_order_depends_target_build-debug
+  DEP_FILE = CMakeFiles/build-debug.dir/external/imgui/backends/imgui_impl_glfw.cpp.o.d
+  FLAGS = -g -std=gnu++20
+  INCLUDES = -I/home/omaka/Documents/GitHub/XTOpenGL/external/glm -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui/backends
+  OBJECT_DIR = CMakeFiles/build-debug.dir
+  OBJECT_FILE_DIR = CMakeFiles/build-debug.dir/external/imgui/backends
+
+build CMakeFiles/build-debug.dir/external/imgui/backends/imgui_impl_opengl3.cpp.o: CXX_COMPILER__build-debug_unscanned_Debug /home/omaka/Documents/GitHub/XTOpenGL/external/imgui/backends/imgui_impl_opengl3.cpp || cmake_object_order_depends_target_build-debug
+  DEP_FILE = CMakeFiles/build-debug.dir/external/imgui/backends/imgui_impl_opengl3.cpp.o.d
+  FLAGS = -g -std=gnu++20
+  INCLUDES = -I/home/omaka/Documents/GitHub/XTOpenGL/external/glm -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui -I/home/omaka/Documents/GitHub/XTOpenGL/external/imgui/backends
+  OBJECT_DIR = CMakeFiles/build-debug.dir
+  OBJECT_FILE_DIR = CMakeFiles/build-debug.dir/external/imgui/backends
 
 
 # =============================================================================
@@ -64,7 +113,7 @@ build CMakeFiles/build-debug.dir/src/main.cpp.o: CXX_COMPILER__build-debug_unsca
 #############################################
 # Link the executable build-debug
 
-build build-debug: CXX_EXECUTABLE_LINKER__build-debug_Debug CMakeFiles/build-debug.dir/src/main.cpp.o
+build build-debug: CXX_EXECUTABLE_LINKER__build-debug_Debug CMakeFiles/build-debug.dir/src/main.cpp.o CMakeFiles/build-debug.dir/external/imgui/imgui.cpp.o CMakeFiles/build-debug.dir/external/imgui/imgui_demo.cpp.o CMakeFiles/build-debug.dir/external/imgui/imgui_draw.cpp.o CMakeFiles/build-debug.dir/external/imgui/imgui_tables.cpp.o CMakeFiles/build-debug.dir/external/imgui/imgui_widgets.cpp.o CMakeFiles/build-debug.dir/external/imgui/backends/imgui_impl_glfw.cpp.o CMakeFiles/build-debug.dir/external/imgui/backends/imgui_impl_opengl3.cpp.o
   FLAGS = -g
   LINK_LIBRARIES = -lglfw  -lGL  -lX11  -lpthread  -lXrandr  -lXi  -ldl
   OBJECT_DIR = CMakeFiles/build-debug.dir
@@ -72,6 +121,18 @@ build build-debug: CXX_EXECUTABLE_LINKER__build-debug_Debug CMakeFiles/build-deb
   PRE_LINK = :
   TARGET_FILE = build-debug
   TARGET_PDB = build-debug.dbg
+
+
+#############################################
+# Utility command for create-textures
+
+build create-textures: phony CMakeFiles/create-textures
+
+
+#############################################
+# Utility command for create-shaders
+
+build create-shaders: phony CMakeFiles/create-shaders
 
 
 #############################################
@@ -95,6 +156,20 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
   restat = 1
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Custom command for CMakeFiles/create-textures
+
+build CMakeFiles/create-textures | ${cmake_ninja_workdir}CMakeFiles/create-textures: CUSTOM_COMMAND
+  COMMAND = cd /home/omaka/Documents/GitHub/XTOpenGL/data/textures && mkdir -p /home/omaka/Documents/GitHub/XTOpenGL/build && cp -u -r /home/omaka/Documents/GitHub/XTOpenGL/data/textures /home/omaka/Documents/GitHub/XTOpenGL/build/textures
+
+
+#############################################
+# Custom command for CMakeFiles/create-shaders
+
+build CMakeFiles/create-shaders | ${cmake_ninja_workdir}CMakeFiles/create-shaders: CUSTOM_COMMAND
+  COMMAND = cd /home/omaka/Documents/GitHub/XTOpenGL/data/shaders && mkdir -p /home/omaka/Documents/GitHub/XTOpenGL/build && cp -u -r /home/omaka/Documents/GitHub/XTOpenGL/data/shaders /home/omaka/Documents/GitHub/XTOpenGL/build
 
 # =============================================================================
 # Target aliases.
