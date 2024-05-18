@@ -8,6 +8,7 @@ file(GLOB SOURCE *.cpp )
 add_executable(build-debug 
   src/main.cpp
 
+  external/glad/src/glad.c
   external/imgui/imgui.cpp
   external/imgui/imgui_demo.cpp
   external/imgui/imgui_draw.cpp
@@ -20,10 +21,11 @@ add_executable(build-debug
 target_compile_features(build-debug PRIVATE cxx_std_20)
 
 target_include_directories( build-debug
+  PRIVATE external/glad/include
   PRIVATE external/glm
   PRIVATE external/imgui
   PRIVATE external/imgui/backends
-  # PRIVATE external/stb
+  PRIVATE external/stb
 )
 
 target_link_libraries(build-debug PRIVATE  -lglfw -lGL -lX11 -lpthread -lXrandr -lXi -ldl)
